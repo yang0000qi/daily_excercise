@@ -5,7 +5,7 @@
 	> Created Time: 2016年10月09日 星期日 17时00分58秒
     > The code is to understand "typedef" in function, it has been met in u-boot/arch/arm/lib/board.c
     > typedef int (init_fnc_t) (void)
-
+    
     >函数别名
         typedef int (init_fnc_t) (void)
         相当于为参数是void类型，返回值是int类型的函数类型取了个别名
