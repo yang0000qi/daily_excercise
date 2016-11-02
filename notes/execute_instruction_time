@@ -1,0 +1,23 @@
+典型PC系统各种操作指令的大概时间execute typical instruction
+
+执行基本指令1/1,000,000,000 sec = 1 nanosec
+
+fetch from L1 cache memory	    	从一级缓存中读取数据		        0.5 nanosec
+
+branch misprediction			    分支误预测	        		        5 nanosec
+
+fetch from L2 cache memory		    从二级缓存获取数据	    	        7 nanosec
+
+Mutex lock/unlock			        互斥加锁/解锁			            25 nanosec
+
+fetch from main memory			    从主内存获取数据		            100 nanosec
+
+send 2K bytes over 1Gbps network	通过1G bps 的网络发送2K字节	        20,000 nanosec
+
+read 1MB sequentially from memory	从内存中顺序读取1MB数据		        250,000 nanosec
+
+fetch from new disk location (seek)	从新的磁盘位置获取数据（随机读取）  8,000,000 nanosec
+
+read 1MB sequentially from disk		从磁盘中顺序读取1MB数据	            20,000,000 nanosec
+
+send packet US to Europe and back	从美国发送一个报文包到欧洲再返回    150 milliseconds = 150,000,000 nanosec
