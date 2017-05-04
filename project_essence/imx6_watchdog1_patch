@@ -1,0 +1,58 @@
+commit 374039b889f2c48335a0d2c1961247c743f51367
+Author: yangqi0222 <yangqi0222@thundersoft.com>
+Date:   Thu May 4 17:49:45 2017 +0800
+
+    Summary: [BugID][Kernel] enable watchdog1 for reboot instead of watchdog2.
+    
+    TaskID: 0
+    FeatureID: 0
+    BugID:
+    Module: Kernel
+    Scratch or Copy [S/C]: S
+    CopyFrom:
+    OtherInfo:enable watchdog1 for reboot instead of watchdog2.
+    
+    Change-Id: I76499f6859eeaed84d718b8c3a77f2b1f6a92d68
+
+diff --git a/arch/arm/boot/dts/imx6qdl-sabresd.dtsi b/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
+index 17428e1..368590e 100644
+--- a/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
++++ b/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
+@@ -1115,8 +1115,8 @@
+ 
+ &gpc {
+ 	/* use ldo-bypass, u-boot will check it and configure */
+-	fsl,ldo-bypass = <1>;
+-	fsl,wdog-reset = <2>;
++	fsl,ldo-bypass = <0>;
++	fsl,wdog-reset = <1>;
+ };
+ 
+ &hdmi_audio {
+@@ -1353,11 +1353,11 @@
+ };
+ 
+ &wdog1 {
+-	status = "disabled";
++	status = "okay";
+ };
+ 
+ &wdog2 {
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &esai {
+diff --git a/arch/arm/mach-imx/system.c b/arch/arm/mach-imx/system.c
+index b73fabe..f3bc74a 100644
+--- a/arch/arm/mach-imx/system.c
++++ b/arch/arm/mach-imx/system.c
+@@ -168,6 +168,8 @@ void mxc_restart(enum reboot_mode mode, const char *cmd)
+ 	 */
+ 	__raw_writew(wcr_enable, wdog_base);
+ 	__raw_writew(wcr_enable, wdog_base);
++	__raw_writew(0x5555, wdog_base+2);
++	__raw_writew(0xaaaa, wdog_base+2);
+ 
+ 	/* wait for reset to assert... */
+ 	mdelay(500);
