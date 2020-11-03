@@ -6,7 +6,6 @@
  ************************************************************************/
 
 #include<iostream>
-#include <string>
 #include <cassert>
 #include <stdio.h>
 #include <stdlib.h>
@@ -178,11 +177,10 @@ int main()
 {
     registerSigMonitor();
 
-    while(1)
-    {
-        sleep(1);    
-        SEVEN_PRINT("Running... \n");
-    }
+    SEVEN_PRINT("Running... \n");
+
+    int *ptr = NULL;
+    *ptr = 1;
 
     return 0;
 }
